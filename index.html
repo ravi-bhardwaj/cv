@@ -9,10 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Calm Harmony (Light neutrals with a professional blue accent) -->
-    <!-- Application Structure Plan: A single-page portfolio structured with a hero section, key metric cards, an interactive vertical timeline for work experience (accordion-style drill-down), a filterable bar chart for skills, and a dedicated Education section. This structure transforms the linear CV into an explorable dashboard, allowing users to quickly grasp high-level achievements and then dive into details as needed, which is more engaging and user-friendly than a static document. -->
-    <!-- Visualization & Content Choices: [Hero/Metrics -> Goal: Inform/Impact -> HTML/Tailwind Cards -> Interaction: Static -> Justification: Highlights key numbers immediately for high impact.] [Experience -> Goal: Show Change/Allow Drill-down -> Interactive HTML/CSS/JS Timeline -> Interaction: Accordion expand/collapse -> Justification: Clearly shows career progression while keeping the UI clean; users can explore details on demand.] [Skills -> Goal: Compare/Organize -> Chart.js Bar Chart -> Interaction: Filtering by category -> Justification: Visually represents technical strengths and allows users to focus on specific areas of expertise, which is more effective than a static list.] -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -105,18 +102,22 @@
 
         <!-- Key Metrics Section -->
         <section class="mb-20">
-             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+             <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
                 <div class="metric-card p-6 shadow-xl">
                     <p class="text-4xl font-bold text-blue-600">16+</p>
                     <p class="text-gray-500 mt-2">Years of Experience</p>
                 </div>
                 <div class="metric-card p-6 shadow-xl">
-                    <p class="text-4xl font-bold text-blue-600">10M+</p>
-                    <p class="text-gray-500 mt-2">Events Processed Daily</p>
+                    <p class="text-4xl font-bold text-blue-600">High-Scale</p>
+                    <p class="text-gray-500 mt-2">Cloud Event Processing</p>
                 </div>
                  <div class="metric-card p-6 shadow-xl">
-                    <p class="text-4xl font-bold text-blue-600">99.99%</p>
-                    <p class="text-gray-500 mt-2">Platform Uptime Achieved</p>
+                    <p class="text-4xl font-bold text-blue-600">Fault Resilience</p>
+                    <p class="text-gray-500 mt-2">System & Security</p>
+                </div>
+                 <div class="metric-card p-6 shadow-xl">
+                    <p class="text-4xl font-bold text-blue-600">AI Strategy</p>
+                    <p class="text-gray-500 mt-2">Mission Team Leadership</p>
                 </div>
             </div>
         </section>
