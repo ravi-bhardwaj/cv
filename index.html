@@ -171,7 +171,7 @@
             {
                 id: 2,
                 company: "Guidewire Software",
-                role: "Architect / Senior Consultant",
+                role: "Architect",
                 duration: "July 2014 – April 2021",
                 location: "Dublin, Ireland & Various Client Sites (US)",
                 projects: [
@@ -180,7 +180,8 @@
                         details: [
                             "Led a team of 6 integration engineers and served as Technical Lead for Insurance Suite implementation.",
                             "Designed and implemented critical integrations with external systems (Lexis-Nexis, Copart, e-Subro Hub, CCC, Metpay, Wells-fargo & Bank of America Lockbox).",
-                            "Mentored customer and Guidewire staff on integration best practices and design."
+                            "Mentored customer and Guidewire staff on integration best practices and design.",
+                            "Technologies used: PolicyCenter, BillingCenter, ClaimCenter, Gosu, AWS."
                         ] 
                     },
                     { 
@@ -195,7 +196,8 @@
                         name: "Guidewire Consultant Engagements (Idaho Farm Bureau, Brotherhood Mutual)", 
                         details: [
                             "Acted as Integration Technical Lead for PolicyCenter implementation, integrating with Lexis-Nexis and external Rating Engines.",
-                            "Developed major functional configurations for BillingCenter (Delinquency workflows, Invoicing, Payments processing, User Management)."
+                            "Developed major functional configurations for BillingCenter (Delinquency workflows, Invoicing, Payments processing, User Management).",
+                            "Technologies used: PolicyCenter, BillingCenter, Gosu."
                         ] 
                     },
                 ]
@@ -339,7 +341,8 @@
             const contentDiv = document.getElementById('modal-content');
             contentDiv.innerHTML = '';
 
-            const techSet = new Set();
+            const allTechnologies = new Set();
+            
             job.projects.forEach(project => {
                 const projectDiv = document.createElement('div');
                 projectDiv.className = 'border-l-4 border-blue-200 pl-4 py-2 bg-gray-50 rounded-md';
@@ -351,15 +354,32 @@
 
                 const ul = document.createElement('ul');
                 ul.className = 'list-disc ml-5 space-y-1 text-sm';
+                
                 project.details.forEach(detail => {
                     const li = document.createElement('li');
                     li.innerHTML = detail;
                     ul.appendChild(li);
 
-                    // Simple attempt to extract technologies from details
+                    // Technology Extraction Logic
                     if (detail.includes("Technologies used:")) {
-                        detail.substring(detail.indexOf(":") + 1).split(',').forEach(tech => {
-                            techSet.add(tech.trim());
+                        // 1. Get the substring after "Technologies used:"
+                        let techString = detail.substring(detail.indexOf(":") + 1);
+                        
+                        // 2. Remove parenthesized content (like AWS groups) to simplify parsing, but keep the core terms
+                        // Example: "AWS (API, SQS)" -> "AWS, API, SQS"
+                        techString = techString.replace(/\s*\([^)]+\)/g, (match) => {
+                            // Extract comma-separated terms inside parentheses and prepend the main service name (e.g., AWS)
+                            const coreName = match.match(/([^\s(]+)\s*\(/)?.[1] || '';
+                            const internalTerms = match.substring(match.indexOf('(') + 1, match.lastIndexOf(')')).split(',').map(t => t.trim());
+                            return ', ' + coreName + ', ' + internalTerms.join(', ');
+                        });
+
+                        // 3. Split by comma or pipe, clean, and add to the Set
+                        techString.split(/[|,]/).forEach(tech => {
+                            let cleanTech = tech.trim().replace(/\.$/g, ''); // Remove trailing periods
+                            if (cleanTech.length > 0) {
+                                allTechnologies.add(cleanTech);
+                            }
                         });
                     }
                 });
@@ -367,8 +387,8 @@
                 contentDiv.appendChild(projectDiv);
             });
 
-            const techList = Array.from(techSet).filter(t => t.length > 0).join(' | ');
-            document.getElementById('modal-tech').innerText = techList || "Technologies listed within project details.";
+            const sortedTechList = Array.from(allTechnologies).sort().join(' | ');
+            document.getElementById('modal-tech').innerText = sortedTechList || "Technologies listed within project details.";
 
             modal.classList.remove('hidden');
             modal.classList.add('flex');
