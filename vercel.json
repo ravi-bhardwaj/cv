@@ -1,11 +1,11 @@
 {
   "rewrites": [
     {
-    "source": "/resume",
+    "source": "/cv",
     "destination": "/index.html"
     },
     {
-    "source": "/resume/",
+    "source": "/cv/",
     "destination": "/index.html"
     }
   ]
